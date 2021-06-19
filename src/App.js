@@ -4,6 +4,7 @@ import { LetrasUsadas } from "./components/LetrasUsadas";
 import { Mensaje } from "./components/Mensaje";
 
 function App() {
+  const palabra = "zanahoria"; //Paraula random de l'API
   return (
     <>
       <div className="ahorcado">
@@ -28,7 +29,7 @@ function App() {
         </svg>
       </div>
       <Palabra />
-      <Letra />
+      <Letra palabra={palabra} />
       <LetrasUsadas />
       <Mensaje />
     </>
