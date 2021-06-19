@@ -1,3 +1,8 @@
+import { Palabra } from "./components/Palabra";
+import { Letra } from "./components/Letra";
+import { LetrasUsadas } from "./components/LetrasUsadas";
+import { Mensaje } from "./components/Mensaje";
+
 function App() {
   return (
     <>
@@ -22,11 +27,10 @@ function App() {
           <line className="stage1" x1="16" y1="80" x2="32" y2="80"></line>
         </svg>
       </div>
-      <ul className="palabra"></ul>
-      <input type="text" className="letra" maxLength="1" />
-      <ul className="letras-usadas"></ul>
-      <div className="mensaje ganar">¡Ganaste!</div>
-      <div className="mensaje perder">Ooooh... perdiste</div>
+      <Palabra />
+      <Letra />
+      <LetrasUsadas />
+      <Mensaje />
     </>
   );
 }
