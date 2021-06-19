@@ -2,8 +2,20 @@ import { Palabra } from "./components/Palabra";
 import { Letra } from "./components/Letra";
 import { LetrasUsadas } from "./components/LetrasUsadas";
 import { Mensaje } from "./components/Mensaje";
+import { useEffect } from "react";
 
 function App() {
+  const urlAPI = "http://localhost:5000/palabras/";
+
+  const getPalabras = async () => {
+    const response = await fetch(urlAPI);
+    const data = await response.json;
+    console.log(data);
+  };
+  useEffect(() => {
+    getPalabras();
+  }, []);
+
   return (
     <>
       <div className="ahorcado">
