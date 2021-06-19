@@ -5,6 +5,7 @@ import { Mensaje } from "./components/Mensaje";
 import { useEffect } from "react";
 
 function App() {
+
   const urlAPI = "http://localhost:5000/palabras/";
 
   const getPalabras = async () => {
@@ -15,6 +16,8 @@ function App() {
   useEffect(() => {
     getPalabras();
   }, []);
+
+  const palabra = "zanahoria"; //Paraula random de l'API
 
   return (
     <>
@@ -40,7 +43,7 @@ function App() {
         </svg>
       </div>
       <Palabra />
-      <Letra />
+      <Letra palabra={palabra} />
       <LetrasUsadas />
       <Mensaje />
     </>
