@@ -25,7 +25,6 @@ function App() {
     const { lista } = await response.json();
     const palabraAleatoria = lista[Math.floor(Math.random() * lista.length)];
     setPalabra(palabraAleatoria);
-    console.log(palabraAleatoria);
     setPalabraVacia(Array(palabraAleatoria.length).join(".").split("."));
   };
 
