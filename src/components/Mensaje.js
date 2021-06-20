@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 
 export const Mensaje = (props) => {
@@ -5,7 +6,6 @@ export const Mensaje = (props) => {
   const { victoria, derrota } = props;
   useEffect(() => {
     if (victoria) {
-      console.log("hola");
       setMensaje("Has ganado! (～￣▽￣)～");
     } else if (derrota) {
       setMensaje("Ooh.... Perdiste ╯︿╰");
@@ -17,4 +17,9 @@ export const Mensaje = (props) => {
       <div className="mensaje on">{mensaje}</div>
     </>
   );
+};
+
+Mensaje.propTypes = {
+  victoria: PropTypes.bool.isRequired,
+  derrota: PropTypes.bool.isRequired,
 };

@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export const Figura = (props) => {
   const { fallo } = props;
 
@@ -48,4 +50,8 @@ export const Figura = (props) => {
       </div>
     </>
   );
+};
+
+Figura.propTypes = {
+  fallo: PropTypes.number.isRequired,
 };

@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export const LetrasUsadas = (props) => {
   const { letrasFalladas } = props;
   return (
@@ -16,4 +18,8 @@ export const LetrasUsadas = (props) => {
       </ul>
     </>
   );
+};
+
+LetrasUsadas.propTypes = {
+  letrasFalladas: PropTypes.array.isRequired,
 };
