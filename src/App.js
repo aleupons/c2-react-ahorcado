@@ -27,6 +27,7 @@ function App() {
   const [deshabilitar, setDeshabilitar] = useState(false);
   const [error, setError] = useState(false);
   const [fallo, setFallo] = useState(0);
+  const [letrasFalladas, setLetrasFalladas] = useState([]);
   let nFallos = 0;
   const maxFallos = 11;
   const urlAPIComprobar = "https://letras-ahorcado.herokuapp.com/letras/";
@@ -53,10 +54,13 @@ function App() {
           return letraVacia;
         })
       );
+      setLetra("");
     } else {
-      //No hi ha aquesta lletra
-      // Pintar hangman (variable d'estat "fallo" que li passem a props al component Hangman?)
-      setFallo(fallo + 1);
+      if (!letrasFalladas.includes(letra)) {
+        setLetrasFalladas([...letrasFalladas, letra]);
+      }
+      setFallo(fallo);
+      setLetra("");
       if (nFallos === maxFallos) {
         setDeshabilitar(true);
       }
@@ -83,7 +87,7 @@ function App() {
         disabled={deshabilitar}
       />
       {/* Letra */}
-      <LetrasUsadas />
+      <LetrasUsadas letrasFalladas={letrasFalladas} />
       <Mensaje />
       {error && <Error />}
     </>
