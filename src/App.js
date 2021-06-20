@@ -18,7 +18,6 @@ function App() {
   const [derrota, setDerrota] = useState(false);
   const [fallo, setFallo] = useState(0);
   const [letrasFalladas, setLetrasFalladas] = useState([]);
-  let nFallos = 0;
   const urlAPIComprobar = "https://letras-ahorcado.herokuapp.com/letras/";
 
   const getPalabras = async () => {
@@ -63,7 +62,6 @@ function App() {
           return letraVacia;
         })
       );
-
       setLetra("");
     } else {
       if (!letrasFalladas.includes(letra)) {
@@ -77,6 +75,7 @@ function App() {
       }
     }
   };
+
   const timer = useRef(null);
   const handleLetraChange = (e) => {
     setLetra(e.target.value);
@@ -90,7 +89,6 @@ function App() {
     <>
       <Figura fallo={fallo} />
       <Palabra palabra={palabraVacia} />
-      {/* Letra */}
       <input
         type="text"
         className="letra"
@@ -100,7 +98,6 @@ function App() {
         onKeyUp={() => comprobarLetra(palabra, letra)}
         disabled={deshabilitar}
       />
-      {/* Letra */}
       <LetrasUsadas letrasFalladas={letrasFalladas} />
       <Mensaje victoria={victoria} derrota={derrota} />
       {error && <Error />}
