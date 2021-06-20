@@ -7,19 +7,8 @@ import { Error } from "./components/Error";
 import { Figura } from "./components/Figura";
 
 function App() {
-  /* const urlAPI = "http://localhost:5000/palabras/";
-
-  const getPalabras = async () => {
-    const response = await fetch(urlAPI);
-    const data = await response.json;
-    console.log(data);
-  };
-  useEffect(() => {
-    getPalabras();
-  }, []); */
-
-  const palabra = "zanahoria"; //Paraula random de l'API
-
+  const [palabra, setPalabra] = useState([]);
+  const urlAPI = "http://localhost:3001/palabras";
   const [palabraVacia, setPalabraVacia] = useState(
     Array(palabra.length).join(".").split(".")
   );
@@ -28,8 +17,21 @@ function App() {
   const [error, setError] = useState(false);
   const [fallo, setFallo] = useState(0);
   const [letrasFalladas, setLetrasFalladas] = useState([]);
-  const maxFallos = 11;
+  let nFallos = 0;
   const urlAPIComprobar = "https://letras-ahorcado.herokuapp.com/letras/";
+
+  const getPalabras = async () => {
+    const response = await fetch(urlAPI);
+    const { lista } = await response.json();
+    const palabraAleatoria = lista[Math.floor(Math.random() * lista.length)];
+    setPalabra(palabraAleatoria);
+    console.log(palabraAleatoria);
+    setPalabraVacia(Array(palabraAleatoria.length).join(".").split("."));
+  };
+
+  useEffect(() => {
+    getPalabras();
+  }, []);
 
   const comprobarLetra = async (palabra, letra) => {
     if (letra === "") {
