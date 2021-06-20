@@ -1,8 +1,7 @@
 import { Palabra } from "./components/Palabra";
 import { LetrasUsadas } from "./components/LetrasUsadas";
 import { Mensaje } from "./components/Mensaje";
-import { useCallback, useEffect } from "react";
-import { useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Error } from "./components/Error";
 import { Figura } from "./components/Figura";
 
@@ -15,6 +14,8 @@ function App() {
   const [letra, setLetra] = useState("");
   const [deshabilitar, setDeshabilitar] = useState(false);
   const [error, setError] = useState(false);
+  const [victoria, setVictoria] = useState(false);
+  const [derrota, setDerrota] = useState(false);
   const [fallo, setFallo] = useState(0);
   const [letrasFalladas, setLetrasFalladas] = useState([]);
   let nFallos = 0;
@@ -32,6 +33,13 @@ function App() {
     getPalabras();
   }, []);
 
+  useEffect(() => {
+    if (palabraVacia.join("") === palabra) {
+      setVictoria(true);
+      setDeshabilitar(true);
+    }
+  }, [palabraVacia, palabra]);
+
   const comprobarLetra = async (palabra, letra) => {
     if (letra === "") {
       return;
@@ -43,6 +51,7 @@ function App() {
       return false;
     }
     const { error, posiciones } = await response.json();
+
     if (!error) {
       setPalabraVacia(
         palabraVacia.map((letraVacia, i) => {
@@ -54,20 +63,27 @@ function App() {
           return letraVacia;
         })
       );
+
       setLetra("");
-      if (palabraVacia.join("") === palabra) {
-        setDeshabilitar(true);
-      }
     } else {
       if (!letrasFalladas.includes(letra)) {
         setLetrasFalladas([...letrasFalladas, letra]);
+        setFallo(fallo + 1);
       }
-      setFallo(fallo + 1);
       setLetra("");
-      if (fallo === 10) {
+      if (fallo === 11) {
         setDeshabilitar(true);
+        setDerrota(true);
       }
     }
+  };
+  const timer = useRef(null);
+  const handleLetraChange = (e) => {
+    setLetra(e.target.value);
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
+      e.target.value = "";
+    }, 500);
   };
 
   return (
@@ -80,18 +96,13 @@ function App() {
         className="letra"
         maxLength="1"
         value={letra}
-        onChange={(e) => {
-          setLetra(e.target.value);
-          setTimeout(() => {
-            e.target.value = "";
-          }, 500);
-        }}
+        onChange={handleLetraChange}
         onKeyUp={() => comprobarLetra(palabra, letra)}
         disabled={deshabilitar}
       />
       {/* Letra */}
       <LetrasUsadas letrasFalladas={letrasFalladas} />
-      <Mensaje />
+      <Mensaje victoria={victoria} derrota={derrota} />
       {error && <Error />}
     </>
   );
