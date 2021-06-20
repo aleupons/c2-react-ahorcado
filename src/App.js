@@ -54,6 +54,9 @@ function App() {
         })
       );
       setLetra("");
+      if (palabraVacia.join("") === palabra) {
+        setDeshabilitar(true);
+      }
     } else {
       if (!letrasFalladas.includes(letra)) {
         setLetrasFalladas([...letrasFalladas, letra]);
