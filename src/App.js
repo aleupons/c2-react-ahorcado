@@ -88,7 +88,7 @@ function App() {
       />
       <LetrasUsadas />
       <Mensaje />
-      <Error />
+      {error && <Error />}
     </>
   );
 }
