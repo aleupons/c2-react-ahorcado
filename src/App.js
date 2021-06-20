@@ -3,6 +3,7 @@ import { LetrasUsadas } from "./components/LetrasUsadas";
 import { Mensaje } from "./components/Mensaje";
 import { useEffect } from "react";
 import { useState } from "react";
+import { Error } from "./components/Error";
 
 function App() {
   /* const urlAPI = "http://localhost:5000/palabras/";
@@ -22,6 +23,7 @@ function App() {
 
   const [letra, setLetra] = useState("");
   const [deshabilitar, setDeshabilitar] = useState(false);
+  const [error, setError] = useState(false);
   let nFallos = 0;
   const maxFallos = 11;
   const urlAPIComprobar = "https://letras-ahorcado.herokuapp.com/letras/";
@@ -31,7 +33,7 @@ function App() {
     }
     const response = await fetch(`${urlAPIComprobar}${palabra}/${letra}`);
     if (!response.ok) {
-      //missatge error
+      setError(true);
       return false;
     }
     const { error, posiciones } = await response.json();
@@ -86,6 +88,7 @@ function App() {
       />
       <LetrasUsadas />
       <Mensaje />
+      <Error />
     </>
   );
 }
