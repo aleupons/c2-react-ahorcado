@@ -28,7 +28,6 @@ function App() {
   const [error, setError] = useState(false);
   const [fallo, setFallo] = useState(0);
   const [letrasFalladas, setLetrasFalladas] = useState([]);
-  let nFallos = 0;
   const maxFallos = 11;
   const urlAPIComprobar = "https://letras-ahorcado.herokuapp.com/letras/";
 
@@ -59,9 +58,9 @@ function App() {
       if (!letrasFalladas.includes(letra)) {
         setLetrasFalladas([...letrasFalladas, letra]);
       }
-      setFallo(fallo);
+      setFallo(fallo + 1);
       setLetra("");
-      if (nFallos === maxFallos) {
+      if (fallo === 10) {
         setDeshabilitar(true);
       }
     }
