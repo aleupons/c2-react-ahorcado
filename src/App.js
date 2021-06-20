@@ -71,7 +71,7 @@ function App() {
         setFallo(fallo + 1);
       }
       setLetra("");
-      if (fallo === 11) {
+      if (fallo === 10) {
         setDeshabilitar(true);
         setDerrota(true);
       }
